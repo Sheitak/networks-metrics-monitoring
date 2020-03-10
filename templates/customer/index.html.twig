@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-12 groupe-carrou">
+        <div class="d-flex">
+            <h2>
+                {{ customer.name }}
+            </h2>
+        </div>
+        <div class="contenu-graph">
+            <div class="chart-container2">
+                <h5 class="titre3">Impressions</h5>
+                <canvas class="chart" width="250px" height="340px" data-values="{{ customerImp.metrics|json_encode()|e('html_attr') }}"></canvas>
+            </div>
+            <div class="chart-container2">
+                <h5 class="titre3">Engagements</h5>
+                <canvas class="chart" width="250px" height="340px" data-values="{{ customerEngu.metrics|json_encode()|e('html_attr') }}"></canvas>
+            </div>
+            <div class="chart-container2">
+                <h5 class="titre3">Likes & Réactions</h5>
+                <canvas class="chart" width="250px" height="340px" data-values="{{ customerLike.metrics|json_encode()|e('html_attr') }}"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="https://socialmediafamily.fr/" target="_blank"><img src="/img/logo.png" height="100px" width="100px"></a>
+        <img src="/img/bonhomme{{ randomNumber }}.png" height="100px" width="100px">
+        <div class="btn-group dropup">
+            <a href="{{ path('dashboard') }}">
+                <button type="button" class="btn btn-danger">
+                    Retour au menu
+                </button>
+            </a>
+        </div>
+    </nav>
+{% endblock %}
