@@ -18,12 +18,16 @@
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "build": "encore production --progress",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "node-sass": "^4.13.0",
-    "sass-loader": "^7.0.1"
-  }
+    "sass-loader": "^7.0.1",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
