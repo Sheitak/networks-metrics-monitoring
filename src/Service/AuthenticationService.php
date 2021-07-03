@@ -3,20 +3,29 @@
 namespace App\Service;
 
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class AuthenticationService
 {
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
     public function isAuthenticated(): bool
     {
-        // Start session
         session_start();
 
-        // Check if session variables are filled
         if (empty($_SESSION['user_access_token']) || empty($_SESSION['user_id'])) {
             return false;
         }
 
-        // Create request to check the status of the token
         $client = HttpClient::create();
         $response = $client->request(
             'GET',
@@ -26,13 +35,11 @@ class AuthenticationService
             $_SESSION['user_access_token']
         );
 
-        // Check if the request has failed
         $statusCode = $response->getStatusCode();
         if ($statusCode !== 200) {
             return false;
         }
 
-        // Check if token is valid
         $content = $response->toArray();
         return $content['data']['is_valid'];
     }

@@ -3,21 +3,25 @@
 namespace App\Controller;
 
 use App\Repository\CustomerRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\AuthenticationService;
 use Symfony\Component\HttpClient\HttpClient;
 use \DateTime;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class DashboardController extends AbstractController
 {
     /**
      * @Route("/dashboard", name="dashboard", methods={"GET"})
+     * @throws Exception
+     * @throws TransportExceptionInterface|DecodingExceptionInterface
      */
-    public function index(
-        AuthenticationService $authService
-    ): Response {
+    public function index(AuthenticationService $authService): Response
+    {
         // Check if user is authenticated
         if (!$authService->isAuthenticated()) {
             return $this->redirectToRoute('login');
@@ -68,7 +72,7 @@ class DashboardController extends AbstractController
             }
         }
 
-        $randomNumber = rand(1, 5);
+        $randomNumber = random_int(1, 5);
 
         // Pass datas to Twig
         return $this->render('dashboard/index.html.twig', [

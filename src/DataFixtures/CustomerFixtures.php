@@ -4,14 +4,16 @@ namespace App\DataFixtures;
 
 use App\Entity\Customer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker;
 
 class CustomerFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    /**
+     * @param ObjectManager $manager
+     */
+    public function load(ObjectManager $manager): void
     {
-        //20 customers generation
         $faker  =  Faker\Factory::create('fr_FR');
 
         for ($i = 1; $i <= 20; $i++) {

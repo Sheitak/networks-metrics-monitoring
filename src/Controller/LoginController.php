@@ -7,6 +7,11 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class LoginController extends AbstractController
 {
@@ -18,7 +23,7 @@ class LoginController extends AbstractController
         // Go to Facebook login to get short-live authentication code
         $redirectUri = $request->getSchemeAndHttpHost() . '/authenticate';
         $facebookAppId = $_ENV['FACEBOOK_APP_ID'];
-        $randomString = md5(strval(time()));
+        $randomString = md5((string)time());
 
         return $this->redirect(
             "https://www.facebook.com/v5.0/dialog/oauth" .
@@ -31,6 +36,13 @@ class LoginController extends AbstractController
 
     /**
      * @Route("/authenticate", name="authenticate", methods={"GET"})
+     * @param Request $request
+     * @return Response
+     * @throws TransportExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
      */
     public function authenticate(Request $request): Response
     {

@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="6000" data-wrap="true" data-keyboard="true">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="6000"
+         data-wrap="true" data-keyboard="true">
         <div class="carousel-inner">
             {% for customerPackage in customerPackages %}
                 <div class="carousel-item {% if loop.index is same as(1) %}active{% endif %}">
@@ -10,12 +11,14 @@
                             <div class="col-4 groupe-carrou">
                                 <div class="d-flex">
                                     <h2>
-                                        <a class="name-entreprise" href="{{ path('customer', {'id': customer.id}) }}">{{ customer.name }}</a>
+                                        <a class="name-entreprise"
+                                           href="{{ path('customer', {'id': customer.id}) }}">{{ customer.name }}</a>
                                     </h2>
                                 </div>
                                 <div class="contenu-graph">
                                     <div class="chart-container">
-                                        <canvas class="chart" width="220px" height="310px" data-values="{{ customer.metrics|json_encode()|e('html_attr') }}"></canvas>
+                                        <canvas class="chart" width="220px" height="310px"
+                                                data-values="{{ customer.metrics|json_encode()|e('html_attr') }}"></canvas>
                                     </div>
                                 </div>
 
@@ -40,8 +43,10 @@
     </div>
 
     <nav class="navbar">
-        <a href="https://socialmediafamily.fr/" target="_blank"><img src="/img/logo.png" height="100px" width="100px"></a>
-        <img src="/img/bonhomme{{ randomNumber }}.png" height="100px" width="100px">
+        <a href="https://socialmediafamily.fr/" target="_blank">
+            <img src="/img/logo.png" height="100px" width="100px" alt="logo">
+        </a>
+        <img src="/img/bonhomme{{ randomNumber }}.png" height="100px" width="100px" alt="random-number">
         <div class="btn-group dropup">
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Choisir le client
@@ -49,7 +54,8 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {% for customerPackage in customerPackages %}
                     {% for customer in customerPackage %}
-                        <a class="dropdown-item text-danger" href="{{ path('customer', {'id': customer.id}) }}">{{ customer.name }}</a>
+                        <a class="dropdown-item text-danger"
+                           href="{{ path('customer', {'id': customer.id}) }}">{{ customer.name }}</a>
                     {% endfor %}
                 {% endfor %}
             </div>
