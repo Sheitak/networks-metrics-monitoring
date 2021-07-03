@@ -1,5 +1,4 @@
 # Networks Metrics Monitoring
-## Symfony 5.0.*
 
 This starter kit is here to easily start a repository.
 
