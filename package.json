@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.27.0",
+    "@symfony/webpack-encore": "^4.1.1",
     "core-js": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^17.1.1",
